@@ -15,7 +15,7 @@ $question_skills_String = implode($question_skills, ', ');
 //Checking emptiness validation
 
 //Question Name Emptiness Validation
-if(empty($_POST['question_name'])){
+if(empty($question_name)){
     $question_name = 'Question Name is required! Cannot Be Empty!';
 }
 
@@ -30,7 +30,7 @@ else {
 
 
 //Question Body Emptiness Validation
-if(empty($_POST['question_body'])){
+if(empty($question_body)){
     $question_body = 'Question Body is required! Cannot Be Empty!!';
 }
 //Question Body length validation
@@ -43,7 +43,7 @@ else {
 
 
 //Question Skills Emptiness Validation
-if(empty($_POST['question_skills'])){
+if(empty($question_skills)){
     $question_skills = 'Question Skills is required! Cannot Be Empty!';
 }
 //Skills validation - At Least 2 skills must be entered

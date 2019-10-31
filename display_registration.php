@@ -13,7 +13,7 @@ $password_length = strlen($password);
 //Checking emptiness validation
 
 //First Name Emptiness Validation
-if(empty($_POST['first_name'])){
+if(empty($first_name)){
     $first_name = 'First Name is required! Cannot Be Empty!';
 }
 else {
@@ -21,7 +21,7 @@ else {
 }
 
 //Last Name Emptiness Validation
-if(empty($_POST['last_name'])){
+if(empty($last_name)){
     $last_name = 'Last Name is required! Cannot Be Empty!';
 }
 else {
@@ -29,7 +29,7 @@ else {
 }
 
 //Birthday Emptiness Validation
-if(empty($_POST['birthday'])){
+if(empty($birthday)){
     $birthday = 'Birthday is required! Cannot Be Empty!';
 }
 else {
@@ -37,7 +37,7 @@ else {
 }
 
 //Email Emptiness Validation
-if(empty($_POST['email'])){
+if(empty($email)){
     $email = 'Email Address is required! Cannot Be Empty!';
 }
 //Email "@" character check
@@ -53,7 +53,7 @@ else {
 }
 
 //Password Emptiness Validation
-if(empty($_POST['password'])){
+if(empty($password)){
     $password = 'Password is required! Cannot Be Empty!';
 }
 //Password length validation
