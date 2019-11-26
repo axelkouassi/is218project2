@@ -15,15 +15,13 @@ if(empty($email_address)){
     }
 //Email "@" character check
 else if((stripos($email_address,'@')) === false){
-    $email_address = 'Password must contain "@"!';
+    $email_address = 'Email must contain "@"!';
 }
-//Email format validation
-else if($password_length){
-    $email_address = 'Invalid email format';
-}
+
 else {
     $email_address = filter_input(INPUT_POST,'email_address');
     }
+
 //Password Emptiness Validation
 if(empty($password)){
     $password = 'Password is required! Cannot Be Empty!';
@@ -56,7 +54,6 @@ else {
 
 <nav id="nav_menu">
     <a href="index.html" class="home">Home</a>
-    <!--<a href="aboutme.html">About Me</a>-->
     <a href="login.html" class="login_active">Login</a>
     <a href="register.html">Register</a>
     <a href="questions.html">Questions</a>

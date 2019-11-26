@@ -17,8 +17,6 @@ $question_skills_array = explode(',', $question_skills);
 if(empty($question_name)){
     $question_name = 'Question Name is required! Cannot Be Empty!';
 }
-
-
 //Question Name length validation
 else if($question_name_length < 3){
     $question_name = 'Question Name must be at least 3 characters!';
@@ -37,7 +35,7 @@ else if($question_body_length > 500){
     $question_body = 'Question Name must be less than 500 characters!';
 }
 else {
-    $password = filter_input(INPUT_POST,'question_body');
+    $question_body = filter_input(INPUT_POST,'question_body');
 }
 
 
@@ -48,9 +46,18 @@ if(empty($question_skills)){
 else if(sizeof($question_skills_array) < 2){
     $question_skills = 'Please enter at least 2 skills!';
 }
+else if($question_skills_array){
+    for ($i = 0; $i <  sizeof($question_skills_array); $i++){
+            if ($question_skills_array[$i] == ''){
+                $question_skills = 'Please enter a skill after each comma!';
+            }
+    }
+}
+
 else {
     $question_skills;
 }
+
 
 ?>
 
