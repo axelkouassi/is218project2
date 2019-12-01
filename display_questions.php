@@ -116,5 +116,38 @@ else {
     <label>Question Skills Answer: </label>
     <span><?php echo $question_skills; ?></span><br>
 </main>
+
+<?php
+// Testing database
+if (strlen($question_name) >=3){
+
+
+    // SQL Query
+    $query = 'INSERT INTO questions
+          (title, body, skills)
+          VALUES
+          (:title, :body, :skills)';
+
+//Create PDO Statement
+
+    $statement = $db->prepare($query);
+
+//Bind Form Values to SQL
+    $statement -> bindValue(':title', $question_name);
+    $statement -> bindValue(':body', $question_body);
+    $statement -> bindValue(':skills', $question_skills);
+
+
+//Execute the SQL Query
+    $statement->execute();
+
+//Close the database connection
+    $statement = closeCursor();
+
+}
+else {
+    echo "Form is invalid";
+}
+?>
 </body>
 </html>
