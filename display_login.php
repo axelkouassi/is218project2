@@ -39,25 +39,47 @@ else {
 
 <!-- HTML Document-->
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
+
 <head>
+    <!--Bootstrap-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Display Login Information</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
+    <!--Favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+
+    <!--Website Title-->
+    <title>Login Information</title>
+
+    <!--Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!--CSS-->
+    <link rel="stylesheet" href="style.css" type="text/css" >
+
 </head>
-<body>
 
-<!-- Header Menu -->
+<body id="home_page">
 
-<nav id="nav_menu">
-    <a href="index.html" class="home">Home</a>
-    <a href="login.html" class="login_active">Login</a>
-    <a href="register.html">Register</a>
-    <a href="questions.html">Questions</a>
-</nav>
+//Top bar menu
+<div class="navbar">
+    <nav id="nav_menu">
+        <a href="index.html">
+            <img src="images/logo1.jpg" alt = "Axel Kouassi Personal Logo" id = "logo"></a>
+        <a href="questions.html"class ="right_align">Questions</a>
+        <a href="register.html"class ="right_align">Register</a>
+        <a href="login.html" class ="right_align">Login</a>
+    </nav>
+</div>
+
+
 
 <main>
     <h1>Login Credentials</h1>

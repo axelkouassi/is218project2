@@ -37,3 +37,40 @@
     width: 100%;
     height: auto;
     overflow: hidden;}
+
+/* Give purple color to button*/
+.btn{
+    color: #6F31A0;
+}
+
+/* Give purple color to all h1 elements*/
+h1{
+    color: #6F31A0;
+}
+
+.navbar{
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.form  {
+    max-width: 400px;
+    padding: 15px;
+    margin: 0 auto;
+    position: relative;
+    height: auto;
+    font-size: 16px;
+    /*
+
+    position: relative;*/
+}
+
+h1 {
+
+    margin-bottom: 10px;}
+
+btn btn-default btn-block{
+    background-color: #6F31A0;}
+
+

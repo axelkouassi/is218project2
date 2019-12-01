@@ -1,7 +1,6 @@
 <?php
 
-require ('pdo.php');
-include ('pdo.php');
+//require ('pdo.php');
 
 // Getting input data from users
 $first_name = filter_input(INPUT_POST,'first_name');
@@ -64,54 +63,94 @@ else if($password_length < 8){
     $password = 'Invalid password! Password must be at least 8 characters!';
 }
 
+/*if (strlen($password) >= 8){
+    echo "First Name:$first_name<br>";
+    echo "Last Name:$last_name<br>";
+    echo "Birthday:$birthday<br>";
+    echo "Email:$email<br>";
+    echo "Password:$password<br>";
+
+
+    // PDO Object because require('pdo.php') doesn't work
+    $username = 'ak659';
+    $password = 'IMnYbLekv';
+    $hostname = 'sql1.njit.edu';
+    $dsn = "mysql:host=$hostname;dbname=$username";
+    try{
+        $db = new PDO($dsn, $username, $password);
+    }catch (PDOException $e){
+        echo "Connection failed: " . $e->getMessage();
+    }
+
 // SQL Query
-$query = 'INSERT INTO accounts
+    $query = 'INSERT INTO accounts
           (email, fname, lname, birthday, password)
           VALUES
           (:email, :fname, :lname, :birthday, :password)';
 
 //Create PDO Statement
-$statement = $db->prepare($query);
+
+    $statement = $db->prepare($query);
 
 //Bind Form Values to SQL
-$statement -> bindValue(':fname',$first_name);
-$statement -> bindValue(':lname',$last_name);
-$statement -> bindValue(':birthday',$birthday);
-$statement -> bindValue(':email',$email);
-$statement -> bindValue('::password',$password);
+    $statement -> bindValue(':fname',$first_name);
+    $statement -> bindValue(':lname',$last_name);
+    $statement -> bindValue(':birthday',$birthday);
+    $statement -> bindValue(':email',$email);
+    $statement -> bindValue('::password',$password);
 
 //Execute the SQL Query
-$statement->execute();
+    $statement->execute();
 
 //Close the database connection
-$statement = closeCursor();
+    $statement = closeCursor();
 
+}*/
 
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
+
 <head>
+    <!--Bootstrap-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Display Registration Information</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
+    <!--Favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+
+    <!--Website Title-->
+    <title>Registration Information</title>
+
+    <!--Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!--CSS-->
+    <link rel="stylesheet" href="style.css" type="text/css" >
+
 </head>
-<body>
 
-<!-- Header Menu -->
+<body id="home_page">
 
-<nav id="nav_menu">
-    <a href="index.html" class="home">Home</a>
-    <!--<a href="aboutme.html">About Me</a>-->
-    <a href="login.html" class="login_active">Login</a>
-    <a href="register.html">Register</a>
-    <a href="questions.html">Questions</a>
-</nav>
+//Top bar menu
+<div class="navbar">
+    <nav id="nav_menu">
+        <a href="index.html">
+            <img src="images/logo1.jpg" alt = "Axel Kouassi Personal Logo" id = "logo"></a>
+        <a href="questions.html"class ="right_align">Questions</a>
+        <a href="register.html"class ="right_align">Register</a>
+        <a href="login.html" class ="right_align">Login</a>
+    </nav>
+</div>
 
-<main>
+ <main>
     <h1>Registration Information</h1>
     <label>First Name: </label>
     <span><?php echo htmlspecialchars($first_name); ?></span><br>
@@ -128,5 +167,9 @@ $statement = closeCursor();
     <label>Password: </label>
     <span><?php echo htmlspecialchars($password); ?></span><br>
 </main>
+
 </body>
+
 </html>
+
+
