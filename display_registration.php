@@ -1,6 +1,6 @@
 <?php
 
-//require ('pdo.php');
+require ('pdo.php');
 
 // Getting input data from users
 $first_name = filter_input(INPUT_POST,'first_name');
@@ -63,24 +63,13 @@ else if($password_length < 8){
     $password = 'Invalid password! Password must be at least 8 characters!';
 }
 
-/*if (strlen($password) >= 8){
+if (strlen($password) >= 8){
     echo "First Name:$first_name<br>";
     echo "Last Name:$last_name<br>";
     echo "Birthday:$birthday<br>";
     echo "Email:$email<br>";
     echo "Password:$password<br>";
-
-
-    // PDO Object because require('pdo.php') doesn't work
-    $username = 'ak659';
-    $password = 'IMnYbLekv';
-    $hostname = 'sql1.njit.edu';
-    $dsn = "mysql:host=$hostname;dbname=$username";
-    try{
-        $db = new PDO($dsn, $username, $password);
-    }catch (PDOException $e){
-        echo "Connection failed: " . $e->getMessage();
-    }
+    
 
 // SQL Query
     $query = 'INSERT INTO accounts
@@ -105,35 +94,35 @@ else if($password_length < 8){
 //Close the database connection
     $statement = closeCursor();
 
-}*/
+}
 
 ?>
 
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en-US">
 
 <head>
     <!--Bootstrap-->
-    <meta charset="utf-8">
+    <!--<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <!--<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
     <link rel="manifest" href="favicon/site.webmanifest">
 
     <!--Website Title-->
-    <title>Registration Information</title>
+    <!--<title>Registration Information</title>
 
     <!--Google Fonts-->
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
+    <!--<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
 
     <!--CSS-->
-    <link rel="stylesheet" href="style.css" type="text/css" >
+    <!--<link rel="stylesheet" href="style.css" type="text/css" >
 
 </head>
 
@@ -153,19 +142,19 @@ else if($password_length < 8){
  <main>
     <h1>Registration Information</h1>
     <label>First Name: </label>
-    <span><?php echo htmlspecialchars($first_name); ?></span><br>
+    <span></?php echo htmlspecialchars($first_name); ?></span><br>
 
     <label>Last Name: </label>
-    <span><?php echo htmlspecialchars($last_name); ?></span><br>
+    <span></?php echo htmlspecialchars($last_name); ?></span><br>
 
     <label>Birthday: </label>
-    <span><?php echo htmlspecialchars($birthday); ?></span><br>
+    <span></?php echo htmlspecialchars($birthday); ?></span><br>
 
     <label>Email: </label>
-    <span><?php echo htmlspecialchars($email); ?></span><br>
+    <span></?php echo htmlspecialchars($email); ?></span><br>
 
     <label>Password: </label>
-    <span><?php echo htmlspecialchars($password); ?></span><br>
+    <span></?php echo htmlspecialchars($password); ?></span><br>
 </main>
 
 </body>
