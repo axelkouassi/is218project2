@@ -1,6 +1,7 @@
 <?php
 
 require ('pdo.php');
+
 // Getting input data from users
 $email_address = filter_input(INPUT_POST,'email_address');
 $password = filter_input(INPUT_POST,'password');
@@ -36,6 +37,7 @@ else {
     $password = filter_input(INPUT_POST,'password');
     }
 
+
 ?>
 
 <!-- HTML Document-->
@@ -63,7 +65,7 @@ else {
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
 
     <!--CSS-->
-    <link rel="stylesheet" href="style.css" type="text/css" >
+    <link rel="stylesheet" href="style.css" type="text/css">
 
 </head>
 
@@ -73,13 +75,12 @@ else {
 <div class="navbar">
     <nav id="nav_menu">
         <a href="index.html">
-            <img src="images/logo1.jpg" alt = "Axel Kouassi Personal Logo" id = "logo"></a>
-        <a href="questions.html"class ="right_align">Questions</a>
-        <a href="register.html"class ="right_align">Register</a>
-        <a href="login.html" class ="right_align">Login</a>
+            <img src="images/logo1.jpg" alt="Axel Kouassi Personal Logo" id="logo"></a>
+        <a href="questions.html" class="right_align">Questions</a>
+        <a href="register.html" class="right_align">Register</a>
+        <a href="login.html" class="right_align">Login</a>
     </nav>
 </div>
-
 
 
 <main>
@@ -91,7 +92,42 @@ else {
         <label>Password: </label>
         <span><?php echo htmlspecialchars($password); ?></span><br>
     </div>
-
 </main>
+
+<?php
+    // Testing database
+    if (strlen($password) >= 8) {
+
+
+        // SQL Query
+        $query = 'SELECT * 
+                  FROM accounts
+                  WHERE email = :email AND password = :password';
+
+        //Create PDO Statement
+
+        $statement = $db->prepare($query);
+
+        //Bind Form Values to SQL
+        $statement->bindValue(':email', $email_address);
+        $statement->bindValue(':password', $password);
+
+        //Execute the SQL Query
+        $statement->execute();
+
+        //Fetch All data
+        $accounts = $statement->fetchAll();
+
+        //Close the database connection
+        $statement = closeCursor();
+
+        echo "print_r($accounts)";
+
+
+    } else {
+        echo "Form is invalid";
+    }
+
+    ?>
 </body>
 </html>
