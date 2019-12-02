@@ -1,4 +1,6 @@
 <?php
+
+require ('pdo.php');
 // Getting input data from users
 $question_name = filter_input(INPUT_POST,'question_name');
 $question_body = filter_input(INPUT_POST,'question_body');
@@ -121,27 +123,25 @@ else {
 // Testing database
 if (strlen($question_name) >=3){
 
-
     // SQL Query
     $query = 'INSERT INTO questions
           (title, body, skills)
           VALUES
           (:title, :body, :skills)';
 
-//Create PDO Statement
+    //Create PDO Statement
+     $statement = $db->prepare($query);
 
-    $statement = $db->prepare($query);
-
-//Bind Form Values to SQL
+    //Bind Form Values to SQL
     $statement -> bindValue(':title', $question_name);
     $statement -> bindValue(':body', $question_body);
     $statement -> bindValue(':skills', $question_skills);
 
 
-//Execute the SQL Query
-    $statement->execute();
+     //Execute the SQL Query
+     $statement->execute();
 
-//Close the database connection
+     //Close the database connection
     $statement = closeCursor();
 
 }
