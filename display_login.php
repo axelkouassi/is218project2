@@ -104,7 +104,7 @@ $statement = closeCursor();*/
 </div>
 
 
-<main>
+<main class = "display">
     <h1>Login Credentials</h1>
     <div>
         <label>Email Address: </label>
@@ -114,17 +114,6 @@ $statement = closeCursor();*/
         <span><?php echo htmlspecialchars($password); ?></span><br>
     </div>
 
-
-    <!-- Trying to display SQL Query
-    <div>
-        <h1> SQL Query</h1>
-        </?php foreach ($accounts as $account) :  ?>
-            <tr>
-                <td></?php echo $account['email']; ?></td>
-                <td></?php echo $account['password']; ?></td>
-            </tr>
-        </?php endforeach; ?>
-    </div> -->
 </main>
 
 <?php
@@ -152,9 +141,26 @@ $statement = closeCursor();*/
         $accounts = $statement->fetchAll();
 
         //Close the database connection
-        $statement = closeCursor();
+        $statement->closeCursor();
 
-        echo "print_r($accounts)";
+        echo "<div class = \"display\">";
+        echo "<h2>SQL Select Query</h2>";
+
+        echo "<table>
+                     <tr>
+                      <th> Email</th>
+                      <th>Password</th>
+                      </tr>";
+             foreach ($accounts as $account){
+             echo "<tr>
+                       <td>" ; echo $account['email']; echo"</td>;
+                       <td>"; echo  $account['password']; echo "</td>
+                    </tr>";
+            echo "</table>";
+
+            echo "</div>";
+        }
+
 
 
     } else {

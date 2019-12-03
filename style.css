@@ -74,3 +74,31 @@ btn btn-default btn-block{
     background-color: #6F31A0;}
 
 
+/* Display_Login.php */
+h2{
+    color: red;
+    margin-bottom: 0;
+    padding-bottom: 0;}
+
+table{
+    border: solid 1px black;
+    margin-top: 0;
+    padding-bottom: 0;}
+
+th{
+    width:200px;
+    height: 30px;
+    padding-left: 5px;
+    border:1px solid black;}
+
+td{
+    width:200px;
+    height: 30px;
+    border:1px solid black;
+    padding-left: 5px;}
+
+.display{
+    margin: 30px;
+}
+
+
