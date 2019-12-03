@@ -37,28 +37,6 @@ else {
     $password = filter_input(INPUT_POST,'password');
     }
 
-/*// SQL Query
-$query = 'SELECT * 
-                  FROM accounts
-                  WHERE email = :email AND password = :password';
-
-//Create PDO Statement
-
-$statement = $db->prepare($query);
-
-//Bind Form Values to SQL
-$statement->bindValue(':email', $email_address);
-$statement->bindValue(':password', $password);
-
-//Execute the SQL Query
-$statement->execute();
-
-//Fetch All data
-$accounts = $statement->fetchAll();
-
-//Close the database connection
-$statement = closeCursor();*/
-
 ?>
 
 <!-- HTML Document-->
@@ -164,7 +142,7 @@ $statement = closeCursor();*/
 
 
     } else {
-        echo "Form is invalid";
+        echo "username/password combo does not exist";
     }
 
     ?>
