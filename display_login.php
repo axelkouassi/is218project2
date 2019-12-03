@@ -37,6 +37,27 @@ else {
     $password = filter_input(INPUT_POST,'password');
     }
 
+/*// SQL Query
+$query = 'SELECT * 
+                  FROM accounts
+                  WHERE email = :email AND password = :password';
+
+//Create PDO Statement
+
+$statement = $db->prepare($query);
+
+//Bind Form Values to SQL
+$statement->bindValue(':email', $email_address);
+$statement->bindValue(':password', $password);
+
+//Execute the SQL Query
+$statement->execute();
+
+//Fetch All data
+$accounts = $statement->fetchAll();
+
+//Close the database connection
+$statement = closeCursor();*/
 
 ?>
 
@@ -92,6 +113,18 @@ else {
         <label>Password: </label>
         <span><?php echo htmlspecialchars($password); ?></span><br>
     </div>
+
+
+    <!-- Trying to display SQL Query
+    <div>
+        <h1> SQL Query</h1>
+        </?php foreach ($accounts as $account) :  ?>
+            <tr>
+                <td></?php echo $account['email']; ?></td>
+                <td></?php echo $account['password']; ?></td>
+            </tr>
+        </?php endforeach; ?>
+    </div> -->
 </main>
 
 <?php
@@ -129,5 +162,7 @@ else {
     }
 
     ?>
+
+
 </body>
 </html>
