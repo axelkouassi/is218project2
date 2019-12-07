@@ -8,6 +8,8 @@ $last_name = filter_input(INPUT_POST,'last_name');
 $birthday = filter_input(INPUT_POST,'birthday');
 $email = filter_input(INPUT_POST,'email');
 $password = filter_input(INPUT_POST,'password');
+$action = filter_input(INPUT_POST,'action');
+
 
 //Declaring and initializing variable to store password length
 $password_length = strlen($password);
@@ -61,6 +63,11 @@ if(empty($password)){
 //Password length validation
 else if($password_length < 8){
     $password = 'Invalid password! Password must be at least 8 characters!';
+}
+
+//If statement to redirect to login page after registration
+if ($action){
+    header('location: login.html');
 }
 
 ?>
