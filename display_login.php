@@ -124,7 +124,7 @@ else {
             header('location: register.html');
         }
         else{
-            header('location: questions.html');
+            header('location: display_questions.php');
         }
 
         //Close the database connection
