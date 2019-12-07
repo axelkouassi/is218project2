@@ -1,5 +1,6 @@
 <?php
 
+// adding pdo.php file to use pdo objects
 require ('pdo.php');
 
 // Getting input data from users
@@ -118,8 +119,18 @@ else {
         //Fetch All data
         $accounts = $statement->fetchAll();
 
+        //if conditional to redirect a request
+        if (empty($accounts)){
+            header('location: register.html');
+        }
+        else{
+            header('location: questions.html');
+        }
+
         //Close the database connection
         $statement->closeCursor();
+
+
 
         echo "<div class = \"display\">";
         echo "<h2>SQL Select Query</h2>";
@@ -137,9 +148,8 @@ else {
             echo "</table>";
 
             echo "</div>";
+
         }
-
-
 
     } else {
         echo "username/password combo does not exist";
