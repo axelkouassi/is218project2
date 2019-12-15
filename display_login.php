@@ -87,24 +87,21 @@ else {
     <h1>Login Credentials</h1>
     <div>
         <label>Email Address: </label>
-        <span><?php echo htmlspecialchars($email_address); ?></span><br>
+        <span></?php echo htmlspecialchars($email_address); ?></span><br>
 
         <label>Password: </label>
-        <span><?php echo htmlspecialchars($password); ?></span><br>
+        <span></?php echo htmlspecialchars($password); ?></span><br>
     </div>
 
 </main> --> <!-- Display of data validation -->
 
 <?php
-    // Testing database
-    if (strlen($password) >= 8) {
 
-
+    // Function to check login information and return user id
+    function check_login($email_address, $password) {
+        global $db;
         // SQL Query
-        $query = 'SELECT * 
-                  FROM accounts
-                  WHERE email = :email AND password = :password';
-
+        $query = 'SELECT * FROM accounts WHERE email = :email AND password = :password';
         //Create PDO Statement
         $statement = $db->prepare($query);
 
@@ -116,30 +113,98 @@ else {
         $statement->execute();
 
         //Fetch All data
-        $accounts = $statement->fetchAll();
+        $user = $statement->fetch();
 
-        // Get user data
-        $id = $accounts['id'];
-        $firstName = $accounts['fname'];
-        $lastName = $accounts['lname'];
-        $email = $accounts['email'];
+        $isValidLogin = count($user) > 0;
 
-
-        //if conditional to redirect a request
-        if (empty($accounts)){
-            header('location: register.html');
-        }
-        else{
-            header("location: display_questions.php?email_address=$email_address&password=$password"); //Redirect to display_questions.php
-        }
-
-        //Close the database connection
+        if (!$isValidLogin) {
         $statement->closeCursor();
+        return false;
+        } else {
+        $id = $user['id'];
+        $firstName = $user['fname'];
+        $lastName = $user['lname'];
+        $statement->closeCursor();
+        return $id;
 
-
-    } else {
-        echo "username/password combo does not exist";
+        }
     }
+
+
+    // Function to return first name
+    function return_fname($email_address, $password) {
+    global $db;
+    // SQL Query
+    $query = 'SELECT * FROM accounts WHERE email = :email AND password = :password';
+    //Create PDO Statement
+    $statement = $db->prepare($query);
+
+    //Bind Form Values to SQL
+    $statement->bindValue(':email', $email_address);
+    $statement->bindValue(':password', $password);
+
+    //Execute the SQL Query
+    $statement->execute();
+
+    //Fetch All data
+    $user = $statement->fetch();
+
+    $isValidLogin = count($user) > 0;
+
+    if (!$isValidLogin) {
+        $statement->closeCursor();
+        return false;
+    } else {
+        $firstName = $user['fname'];
+        $statement->closeCursor();
+        return $firstName;
+    }
+    }
+
+    // Function to return last name
+    function return_lname($email_address, $password) {
+    global $db;
+    // SQL Query
+    $query = 'SELECT * FROM accounts WHERE email = :email AND password = :password';
+    //Create PDO Statement
+    $statement = $db->prepare($query);
+
+    //Bind Form Values to SQL
+    $statement->bindValue(':email', $email_address);
+    $statement->bindValue(':password', $password);
+
+    //Execute the SQL Query
+    $statement->execute();
+
+    //Fetch All data
+    $user = $statement->fetch();
+
+    $isValidLogin = count($user) > 0;
+
+    if (!$isValidLogin) {
+        $statement->closeCursor();
+        return false;
+    } else {
+        $lastName = $user['lname'];
+        $statement->closeCursor();
+        return $lastName;
+    }
+    }
+    
+
+    // Checking login info and Redirecting and sending data to display_questions.php
+    $id = check_login($email_address, $password);
+    $firstName = return_fname($email_address, $password);
+    $lastName = return_lname($email_address, $password);
+
+    //if condition to redirect a request if fields are empty
+    if ($id == false){
+        header('location: register.html');
+    }
+    else {
+        //Redirect to display_questions.php if login is true
+        header("location: display_questions.php?email_address=$email_address&password=$password&userID=$id&fname=$firstName&lname=$lastName");
+        }
 
     ?>
 
