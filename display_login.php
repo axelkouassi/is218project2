@@ -83,7 +83,7 @@ else {
 </div>
 
 
-<main class = "display">
+<!--<main class = "display">
     <h1>Login Credentials</h1>
     <div>
         <label>Email Address: </label>
@@ -93,7 +93,7 @@ else {
         <span><?php echo htmlspecialchars($password); ?></span><br>
     </div>
 
-</main>
+</main> --> <!-- Display of data validation -->
 
 <?php
     // Testing database
@@ -106,7 +106,6 @@ else {
                   WHERE email = :email AND password = :password';
 
         //Create PDO Statement
-
         $statement = $db->prepare($query);
 
         //Bind Form Values to SQL
@@ -119,37 +118,24 @@ else {
         //Fetch All data
         $accounts = $statement->fetchAll();
 
+        // Get user data
+        $id = $accounts['id'];
+        $firstName = $accounts['fname'];
+        $lastName = $accounts['lname'];
+        $email = $accounts['email'];
+
+
         //if conditional to redirect a request
         if (empty($accounts)){
             header('location: register.html');
         }
         else{
-            header('location: display_questions.php');
+            header("location: display_questions.php?email_address=$email_address&password=$password"); //Redirect to display_questions.php
         }
 
         //Close the database connection
         $statement->closeCursor();
 
-
-
-        echo "<div class = \"display\">";
-        echo "<h2>SQL Select Query</h2>";
-
-        echo "<table>
-                     <tr>
-                      <th> Email</th>
-                      <th>Password</th>
-                      </tr>";
-             foreach ($accounts as $account){
-             echo "<tr>
-                       <td>" ; echo $account['email']; echo"</td>;
-                       <td>"; echo  $account['password']; echo "</td>
-                    </tr>";
-            echo "</table>";
-
-            echo "</div>";
-
-        }
 
     } else {
         echo "username/password combo does not exist";
