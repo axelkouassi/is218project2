@@ -61,6 +61,19 @@ else {
     $question_skills;
 }
 
+//Display User's First and Last Name
+
+// Getting input data from users
+$email_address = filter_input(INPUT_GET,'email_address');
+$password = filter_input(INPUT_GET,'password');
+$id = filter_input(INPUT_GET,'userID');
+$firstName = filter_input(INPUT_GET,'fname');
+$lastName = filter_input(INPUT_GET,'lname');
+
+$name = filter_input(INPUT_GET,'qname');
+$body = filter_input(INPUT_GET,'qbody');
+$skills = filter_input(INPUT_GET,'qskills');
+
 
 ?>
 
@@ -84,7 +97,7 @@ else {
     <link rel="manifest" href="favicon/site.webmanifest">
 
     <!--Website Title-->
-    <title>New Questions Information</title>
+    <title>Display of User's Questions</title>
 
     <!--Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
@@ -107,17 +120,52 @@ else {
     </nav>
 </div>
 
-<main>
-    <h1>Question Information</h1>
-    <label>Question Name: </label>
-    <span><?php echo htmlspecialchars($question_name); ?></span><br>
+<div class = "display">
+    <main>
+        <h1>Displaying of User's Questions</h1>
 
-    <label>Question Body: </label>
-    <span><?php echo htmlspecialchars($question_body); ?></span><br>
+        <!--<label>Question Name: </label>
+        <span></?php echo htmlspecialchars($question_name); ?></span><br>
 
-    <label>Question Skills Answer: </label>
-    <span><?php echo $question_skills; ?></span><br>
-</main>
+        <label>Question Body: </label>
+        <span></?php echo htmlspecialchars($question_body); ?></span><br>
+
+        <label>Question Skills Answer: </label>
+        <span></?php echo $question_skills; ?></span><br>  // Comments displaying data validation errors--> <!-- Comments displaying data validation errors -->
+
+        <label>First Name: </label>
+        <span><?php echo $firstName; ?></span><br>
+
+        <label>Last Name: </label>
+        <span><?php echo $lastName; ?></span><br>
+
+    </main>
+
+    <!-- Display Questions -->
+    <h1>Questions</h1>
+    <div>
+        <table>
+            <tr>
+                <th>Question Name</th>
+                <th>Body</th>
+                <th>Skills</th>
+            </tr>
+            <?php foreach($questions as $question) : ?>
+                <tr>
+                    <td><?php echo $question['title']; ?></td>
+                    <td><?php echo $question['body']; ?></td>
+                    <td><?php echo $question['skills']; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+
+    <br>
+    <a href="questions.html&userId=<?php echo $id ?>" class="btn btn-default btn-block">Add Questions</a>
+    <a href="questions.html" class="btn btn-default btn-block">Add Questions</a>
+</div>
+
+
 
 <?php
 // Testing database
@@ -147,6 +195,178 @@ if (strlen($question_name) >=3){
 }
 else {
     echo "Form is invalid";
+}
+
+    // Function to get question name
+    function get_qname($question_name, $question_body, $question_skills) {
+    global $db;
+    // SQL Query
+    $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
+    //Create PDO Statement
+    $statement = $db->prepare($query);
+
+    //Bind Form Values to SQL
+    $statement->bindValue(':qname', $question_name);
+    $statement->bindValue(':body', $question_body);
+    $statement->bindValue(':skills', $question_skills);
+
+    //Execute the SQL Query
+    $statement->execute();
+
+    //Fetch All data
+    $question = $statement->fetchAll();
+
+    $isValidLogin = count($question) > 0;
+
+    if (!$isValidLogin) {
+        $statement->closeCursor();
+        return false;
+    } else {
+        $name = $question['title'];
+        $statement->closeCursor();
+        return $name;
+    }
+    }
+
+    // Function to get question body
+    function get_qbody($question_name, $question_body, $question_skills) {
+    global $db;
+    // SQL Query
+    $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
+    //Create PDO Statement
+    $statement = $db->prepare($query);
+
+    //Bind Form Values to SQL
+    $statement->bindValue(':qname', $question_name);
+    $statement->bindValue(':body', $question_body);
+    $statement->bindValue(':skills', $question_skills);
+
+    //Execute the SQL Query
+    $statement->execute();
+
+    //Fetch All data
+    $question = $statement->fetchAll();
+
+    $isValidLogin = count($question) > 0;
+
+    if (!$isValidLogin) {
+        $statement->closeCursor();
+        return false;
+    } else {
+        $body = $question['body'];
+        $statement->closeCursor();
+        return $body;
+    }
+    }
+
+    // Function to get question skills
+    function get_qskills($question_name, $question_body, $question_skills) {
+    global $db;
+    // SQL Query
+    $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
+    //Create PDO Statement
+    $statement = $db->prepare($query);
+
+    //Bind Form Values to SQL
+    $statement->bindValue(':qname', $question_name);
+    $statement->bindValue(':body', $question_body);
+    $statement->bindValue(':skills', $question_skills);
+
+    //Execute the SQL Query
+    $statement->execute();
+
+    //Fetch All data
+    $question = $statement->fetchAll();
+
+    $isValidLogin = count($question) > 0;
+
+    if (!$isValidLogin) {
+        $statement->closeCursor();
+        return false;
+    } else {
+        $skills = $question['title'];
+        $statement->closeCursor();
+        return $skills;
+    }
+    }
+
+    // Function to get question id
+    function get_qid($question_name, $question_body, $question_skills) {
+    global $db;
+    // SQL Query
+    $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
+    //Create PDO Statement
+    $statement = $db->prepare($query);
+
+    //Bind Form Values to SQL
+    $statement->bindValue(':qname', $question_name);
+    $statement->bindValue(':body', $question_body);
+    $statement->bindValue(':skills', $question_skills);
+
+    //Execute the SQL Query
+    $statement->execute();
+
+    //Fetch All data
+    $question = $statement->fetchAll();
+
+    $isValidLogin = count($question) > 0;
+
+    if (!$isValidLogin) {
+        $statement->closeCursor();
+        return false;
+    } else {
+        $qID = $question['id'];
+        $statement->closeCursor();
+        return $qID;
+    }
+    }
+
+    // Function to get owner id
+    function get_ownerID($question_name, $question_body, $question_skills) {
+    global $db;
+    // SQL Query
+    $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
+    //Create PDO Statement
+    $statement = $db->prepare($query);
+
+    //Bind Form Values to SQL
+    $statement->bindValue(':qname', $question_name);
+    $statement->bindValue(':body', $question_body);
+    $statement->bindValue(':skills', $question_skills);
+
+    //Execute the SQL Query
+    $statement->execute();
+
+    //Fetch All data
+    $question = $statement->fetchAll();
+
+    $isValidLogin = count($question) > 0;
+
+    if (!$isValidLogin) {
+        $statement->closeCursor();
+        return false;
+    } else {
+        $ownerID = $question['id'];
+        $statement->closeCursor();
+        return $ownerID;
+    }
+}
+
+
+// Checking login info and Redirecting and sending data to display_questions.php
+$name = get_qname($question_name, $question_body, $question_skills);
+$body = get_qbody($question_name, $question_body, $question_skills);
+$skills = get_qskills($question_name, $question_body, $question_skills);
+$qID = get_qid($question_name, $question_body, $question_skills);
+$ownerID = get_qid($question_name, $question_body, $question_skills);
+
+//if condition to redirect a request if fields are empty
+if ($name == false AND $body == FALSE || $skills == FALSE){
+    header('location: register.html');
+}
+else {
+    //Redirect to display_questions.php if login is true
+    header("location: display_questions.php?qname=$name &qbody=$body&qskills=$skills&qID=$qID&ownerID=$ownerID");
 }
 ?>
 </body>
