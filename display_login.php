@@ -227,7 +227,7 @@ switch ($action) {
     //Execute the SQL Query
     $statement->execute();
     //Fetch All data
-    $question = $statement->fetchAll();
+    $question = $statement->fetch();
     $isValidLogin = count($question) > 0;
 
     if (!$isValidLogin) {
@@ -252,7 +252,7 @@ switch ($action) {
     //Execute the SQL Query
     $statement->execute();
     //Fetch All data
-    $question = $statement->fetchAll();
+    $question = $statement->fetch();
     $isValidLogin = count($question) > 0;
 
     if (!$isValidLogin) {
@@ -277,7 +277,7 @@ switch ($action) {
     //Execute the SQL Query
     $statement->execute();
     //Fetch All data
-    $question = $statement->fetchAll();
+    $question = $statement->fetch();
     $isValidLogin = count($question) > 0;
 
     if (!$isValidLogin) {
@@ -303,7 +303,7 @@ switch ($action) {
         header("location: display_questions.php?&userID=$id&fname=$firstName&lname=$lastName&title=$qTitle&body=$qBody&skills=$qSkills");
         }
 
-    // Question Form
+
 
 
     ?>
