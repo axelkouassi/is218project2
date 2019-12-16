@@ -138,8 +138,6 @@ switch ($action) {
         return false;
         } else {
         $id = $user['id'];
-        $firstName = $user['fname'];
-        $lastName = $user['lname'];
         $statement->closeCursor();
         return $id;
 
@@ -207,9 +205,7 @@ switch ($action) {
     }
     }
 
-
     
-
     // Checking login info and Redirecting and sending data to display_questions.php
     $id = check_login($email_address, $password);
     $firstName = return_fname($email_address, $password);
