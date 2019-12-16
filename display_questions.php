@@ -61,57 +61,21 @@ else {
     $question_skills;
 }
 
+
 //Display User's First and Last Name
 
-// Getting input data from users
+// Getting input data from users from display_login.php
 $email_address = filter_input(INPUT_GET,'email_address');
 $password = filter_input(INPUT_GET,'password');
 $id = filter_input(INPUT_GET,'userID');
 $firstName = filter_input(INPUT_GET,'fname');
 $lastName = filter_input(INPUT_GET,'lname');
-
-    //Displaying user's questions
-
-    //function to return question name
-    function getQName($id) {
-    global $db;
-    // SQL Query
-    $query = 'SELECT * FROM questions WHERE ownerID = :ownerID';
-    //Create PDO Statement
-    $statement = $db->prepare($query);
-    //Bind Form Values to SQL
-    $statement->bindValue(':ownerID', $id);
-    //Execute the SQL Query
-    $statement->execute();
-    //Fetch All data
-    $question = $statement->fetchAll();
-    $isValidLogin = count($question) > 0;
-
-    if (!$isValidLogin) {
-        $statement->closeCursor();
-        return false;
-    } else {
-        $name = $question['title'];
-        $statement->closeCursor();
-        return $name;
-    }
-}
-
-$qTitle = getQName($id);
-
-//if condition to redirect a request if fields are empty
-    if ($qTitle == false){
-        header('location: questions.html');
-    }
-    else {
-        //Redirect to display_questions.php if login is true
-        header("location: .?title=$qTitle");
-    }
-
-//Getting data about question name, body and skills
 $qTitle = filter_input(INPUT_GET,'title');
-/*$body = filter_input(INPUT_GET,'qbody');
-$skills = filter_input(INPUT_GET,'qskills');*/
+$qBody = filter_input(INPUT_GET,'body');
+$qSkills = filter_input(INPUT_GET,'skills');
+
+
+
 
 
 ?>
@@ -191,10 +155,56 @@ $skills = filter_input(INPUT_GET,'qskills');*/
                 <th>Skills</th>
             </tr>
             <?php foreach($questions as $question) : ?>
+
+                <?php
+                /*Displaying user's questions
+
+                //function to return question name
+                function getQName($id) {
+                    global $db;
+                    // SQL Query
+                    $query = 'SELECT * FROM questions WHERE ownerID = :ownerID';
+                    //Create PDO Statement
+                    $statement = $db->prepare($query);
+                    //Bind Form Values to SQL
+                    $statement->bindValue(':ownerID', $id);
+                    //Execute the SQL Query
+                    $statement->execute();
+                    //Fetch All data
+                    $question = $statement->fetchAll();
+                    $isValidLogin = count($question) > 0;
+
+                    if (!$isValidLogin) {
+                        $statement->closeCursor();
+                        return false;
+                    } else {
+                        $name = $question['title'];
+                        $statement->closeCursor();
+                        return $name;
+                    }
+                }
+
+                $qTitle = getQName($id);
+
+                //if condition to redirect a request if fields are empty
+                if ($qTitle == false){
+                    header('location: display_questions.php');
+                }
+                else {
+                    //Redirect to display_questions.php if login is true
+                    header("location: .?title=$qTitle");
+                }
+
+                //Getting data about question name, body and skills
+                $qTitle = filter_input(INPUT_GET,'title');
+                $body = filter_input(INPUT_GET,'qbody');
+                $skills = filter_input(INPUT_GET,'qskills');*/
+
+                ?>
                 <tr>
                     <td><?php echo $qTitle; ?></td>
-                    <td><?php echo $question['body']; ?></td>
-                    <td><?php echo $question['skills']; ?></td>
+                    <td><?php echo $qBody; ?></td>
+                    <td><?php echo $qSkills; ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
