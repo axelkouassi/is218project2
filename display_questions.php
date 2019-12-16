@@ -1,72 +1,17 @@
 <?php
 
 require ('pdo.php');
-// Getting input data from users
-$question_name = filter_input(INPUT_POST,'question_name');
-$question_body = filter_input(INPUT_POST,'question_body');
-$question_skills = filter_input(INPUT_POST,'question_skills');
-
-//Declaring and initializing variable to store question name and question body length
-$question_name_length = strlen($question_name);
-$question_body_length = strlen($question_body);
-
-//Convert a comma separated string to an array
-$question_skills_array = explode(',', $question_skills);
-
-//Checking emptiness validation
-
-//Question Name Emptiness Validation
-if(empty($question_name)){
-    $question_name = 'Question Name is required! Cannot Be Empty!';
-}
-//Question Name length validation
-else if($question_name_length < 3){
-    $question_name = 'Question Name must be at least 3 characters!';
-}
-else {
-    $question_name = filter_input(INPUT_POST,'question_name');
-}
-
-
-//Question Body Emptiness Validation
-if(empty($question_body)){
-    $question_body = 'Question Body is required! Cannot Be Empty!!';
-}
-//Question Body length validation
-else if($question_body_length > 500){
-    $question_body = 'Question Name must be less than 500 characters!';
-}
-else {
-    $question_body = filter_input(INPUT_POST,'question_body');
-}
-
-
-//Question Skills Emptiness Validation
-if(empty($question_skills)){
-    $question_skills = 'Question Skills is required! Cannot Be Empty!';
-}
-else if(sizeof($question_skills_array) < 2){
-    $question_skills = 'Please enter at least 2 skills!';
-}
-// Adding validation requiring skill after each comma so user can't only put comma and the empty space will be considered a skill
-else if($question_skills_array){
-    for ($i = 0; $i <  sizeof($question_skills_array); $i++){
-            if ($question_skills_array[$i] == ''){
-                $question_skills = 'Please enter a skill after each comma!';
-            }
-    }
-}
-
-else {
-    $question_skills;
-}
-
 
 //Display User's First and Last Name
 // Getting input data from users from display_login.php
 $id = filter_input(INPUT_GET,'userID');
 $firstName = filter_input(INPUT_GET,'fname');
 $lastName = filter_input(INPUT_GET,'lname');
+
+// HTTP GET Request Data from questions
+$question_name = filter_input(INPUT_GET,'question_name');
+$question_body = filter_input(INPUT_GET,'question_body');
+$question_skills = filter_input(INPUT_GET,'question_skills');
 
     //Display all user's questions
     global $db;
@@ -89,6 +34,8 @@ $lastName = filter_input(INPUT_GET,'lname');
         //$qSkills = $questions['body'];
         $statement->closeCursor();
     }
+
+
 
 ?>
 
@@ -140,15 +87,6 @@ $lastName = filter_input(INPUT_GET,'lname');
     <main>
         <h1>Displaying of User's Questions</h1>
 
-        <!--<label>Question Name: </label>
-        <span></?php echo htmlspecialchars($question_name); ?></span><br>
-
-        <label>Question Body: </label>
-        <span></?php echo htmlspecialchars($question_body); ?></span><br>
-
-        <label>Question Skills Answer: </label>
-        <span></?php echo $question_skills; ?></span><br>  // Comments displaying data validation errors--> <!-- Comments displaying data validation errors -->
-
         <!-- Displaying User's First and Last Name -->
         <label>First Name: </label>
         <span><?php echo $firstName; ?></span><br>
@@ -180,48 +118,8 @@ $lastName = filter_input(INPUT_GET,'lname');
 
     <a href="questions.html" class="btn">Add Questions</a>
 
-
 </div>
 
-<?php
-// Testing database
-if (strlen($question_name) >=3){
-
-    // SQL Query
-    $query = 'INSERT INTO questions
-          (title, body, skills)
-          VALUES
-          (:title, :body, :skills)';
-
-    //Create PDO Statement
-     $statement = $db->prepare($query);
-
-    //Bind Form Values to SQL
-    $statement -> bindValue(':title', $question_name);
-    $statement -> bindValue(':body', $question_body);
-    $statement -> bindValue(':skills', $question_skills);
-
-
-     //Execute the SQL Query
-     $statement->execute();
-
-     //Close the database connection
-    $statement = closeCursor();
-
-    //header("Location: display_questions.php?question_name=$question_name&question_body=$question_body&question_skills=$question_skills");
-
-// Receiving data
-    /*$question_name = filter_input(INPUT_GET,'question_name');
-    $question_body = filter_input(INPUT_GET,'question_body');
-    $question_skills = filter_input(INPUT_GET,'question_skills');*/
-
-}
-else {
-    echo "Form is invalid";
-}
-
-
-?>
 
 </body>
 </html>
