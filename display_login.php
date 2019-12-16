@@ -38,6 +38,22 @@ else {
     $password = filter_input(INPUT_POST,'password');
     }
 
+$action = filter_input(INPUT_POST, 'action');
+if ($action == NULL) {
+    $action = filter_input(INPUT_GET, 'action');
+    if ($action == NULL) {
+        $action = 'show_login';
+    }
+}
+
+switch ($action) {
+    case 'show_login':
+    {
+        include('login.html');
+        break;
+    }
+}
+
 ?>
 
 <!-- HTML Document-->
@@ -205,6 +221,9 @@ else {
         //Redirect to display_questions.php if login is true
         header("location: display_questions.php?email_address=$email_address&password=$password&userID=$id&fname=$firstName&lname=$lastName");
         }
+
+    // Question Form
+
 
     ?>
 
