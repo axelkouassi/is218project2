@@ -70,9 +70,48 @@ $id = filter_input(INPUT_GET,'userID');
 $firstName = filter_input(INPUT_GET,'fname');
 $lastName = filter_input(INPUT_GET,'lname');
 
-$name = filter_input(INPUT_GET,'qname');
-$body = filter_input(INPUT_GET,'qbody');
-$skills = filter_input(INPUT_GET,'qskills');
+    //Displaying user's questions
+
+    //function to return question name
+    function getQName($id) {
+    global $db;
+    // SQL Query
+    $query = 'SELECT * FROM questions WHERE ownerID = :ownerID';
+    //Create PDO Statement
+    $statement = $db->prepare($query);
+    //Bind Form Values to SQL
+    $statement->bindValue(':ownerID', $id);
+    //Execute the SQL Query
+    $statement->execute();
+    //Fetch All data
+    $question = $statement->fetchAll();
+    $isValidLogin = count($question) > 0;
+
+    if (!$isValidLogin) {
+        $statement->closeCursor();
+        return false;
+    } else {
+        $name = $question['title'];
+        $statement->closeCursor();
+        return $name;
+    }
+}
+
+$qTitle = getQName($id);
+
+//if condition to redirect a request if fields are empty
+    if ($qTitle == false){
+        header('location: questions.html');
+    }
+    else {
+        //Redirect to display_questions.php if login is true
+        header("location: .?title=$qTitle");
+    }
+
+//Getting data about question name, body and skills
+$qTitle = filter_input(INPUT_GET,'title');
+/*$body = filter_input(INPUT_GET,'qbody');
+$skills = filter_input(INPUT_GET,'qskills');*/
 
 
 ?>
@@ -120,6 +159,7 @@ $skills = filter_input(INPUT_GET,'qskills');
     </nav>
 </div>
 
+
 <div class = "display">
     <main>
         <h1>Displaying of User's Questions</h1>
@@ -152,7 +192,7 @@ $skills = filter_input(INPUT_GET,'qskills');
             </tr>
             <?php foreach($questions as $question) : ?>
                 <tr>
-                    <td><?php echo $question['title']; ?></td>
+                    <td><?php echo $qTitle; ?></td>
                     <td><?php echo $question['body']; ?></td>
                     <td><?php echo $question['skills']; ?></td>
                 </tr>
@@ -161,8 +201,8 @@ $skills = filter_input(INPUT_GET,'qskills');
     </div>
 
     <br>
-    <a href="questions.html&userId=<?php echo $id ?>" class="btn btn-default btn-block">Add Questions</a>
-    <a href="questions.html" class="btn btn-default btn-block">Add Questions</a>
+    <a href="questions.html" class="btn">Add Questions</a>
+
 </div>
 
 
@@ -197,8 +237,12 @@ else {
     echo "Form is invalid";
 }
 
-    // Function to get question name
-    function get_qname($question_name, $question_body, $question_skills) {
+
+?>
+
+<?php
+// Function to get question name
+/*function get_qname($question_name, $question_body, $question_skills) {
     global $db;
     // SQL Query
     $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
@@ -226,10 +270,10 @@ else {
         $statement->closeCursor();
         return $name;
     }
-    }
+}
 
-    // Function to get question body
-    function get_qbody($question_name, $question_body, $question_skills) {
+// Function to get question body
+    /*function get_qbody($question_name, $question_body, $question_skills) {
     global $db;
     // SQL Query
     $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
@@ -257,10 +301,10 @@ else {
         $statement->closeCursor();
         return $body;
     }
-    }
+}
 
-    // Function to get question skills
-    function get_qskills($question_name, $question_body, $question_skills) {
+// Function to get question skills
+function get_qskills($question_name, $question_body, $question_skills) {
     global $db;
     // SQL Query
     $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
@@ -288,10 +332,10 @@ else {
         $statement->closeCursor();
         return $skills;
     }
-    }
+}
 
-    // Function to get question id
-    function get_qid($question_name, $question_body, $question_skills) {
+// Function to get question id
+function get_qid($question_name, $question_body, $question_skills) {
     global $db;
     // SQL Query
     $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
@@ -319,10 +363,10 @@ else {
         $statement->closeCursor();
         return $qID;
     }
-    }
+}
 
-    // Function to get owner id
-    function get_ownerID($question_name, $question_body, $question_skills) {
+// Function to get owner id
+function get_ownerID($question_name, $question_body, $question_skills) {
     global $db;
     // SQL Query
     $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
@@ -366,8 +410,10 @@ if ($name == false AND $body == FALSE || $skills == FALSE){
 }
 else {
     //Redirect to display_questions.php if login is true
-    header("location: display_questions.php?qname=$name &qbody=$body&qskills=$skills&qID=$qID&ownerID=$ownerID");
-}
+    header("location: .?qname=$name &qbody=$body&qskills=$skills&qID=$qID&ownerID=$ownerID");
+}*/
 ?>
+
+
 </body>
 </html>
