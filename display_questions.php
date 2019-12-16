@@ -63,20 +63,32 @@ else {
 
 
 //Display User's First and Last Name
-
 // Getting input data from users from display_login.php
-$email_address = filter_input(INPUT_GET,'email_address');
-$password = filter_input(INPUT_GET,'password');
 $id = filter_input(INPUT_GET,'userID');
 $firstName = filter_input(INPUT_GET,'fname');
 $lastName = filter_input(INPUT_GET,'lname');
-$qTitle = filter_input(INPUT_GET,'title');
-$qBody = filter_input(INPUT_GET,'body');
-$qSkills = filter_input(INPUT_GET,'skills');
 
+    //Display all user's questions
+    global $db;
+    // SQL Query
+    $query = 'SELECT * FROM questions WHERE ownerID = :ownerID';
+    //Create PDO Statement
+    $statement = $db->prepare($query);
+    //Bind Form Values to SQL
+    $statement->bindValue(':ownerID', $id);
+    //Execute the SQL Query
+    $statement->execute();
+    //Fetch All data
+    $questions = $statement->fetchAll();
+    $isValidLogin = count($questions) > 0;
 
-
-
+    if (!$isValidLogin) {
+        $statement->closeCursor();
+        return false;
+    } else {
+        //$qSkills = $questions['body'];
+        $statement->closeCursor();
+    }
 
 ?>
 
@@ -137,6 +149,7 @@ $qSkills = filter_input(INPUT_GET,'skills');
         <label>Question Skills Answer: </label>
         <span></?php echo $question_skills; ?></span><br>  // Comments displaying data validation errors--> <!-- Comments displaying data validation errors -->
 
+        <!-- Displaying User's First and Last Name -->
         <label>First Name: </label>
         <span><?php echo $firstName; ?></span><br>
 
@@ -155,67 +168,20 @@ $qSkills = filter_input(INPUT_GET,'skills');
                 <th>Skills</th>
             </tr>
             <?php foreach($questions as $question) : ?>
-
-                <?php
-                /*Displaying user's questions
-
-                //function to return question name
-                function getQName($id) {
-                    global $db;
-                    // SQL Query
-                    $query = 'SELECT * FROM questions WHERE ownerID = :ownerID';
-                    //Create PDO Statement
-                    $statement = $db->prepare($query);
-                    //Bind Form Values to SQL
-                    $statement->bindValue(':ownerID', $id);
-                    //Execute the SQL Query
-                    $statement->execute();
-                    //Fetch All data
-                    $question = $statement->fetchAll();
-                    $isValidLogin = count($question) > 0;
-
-                    if (!$isValidLogin) {
-                        $statement->closeCursor();
-                        return false;
-                    } else {
-                        $name = $question['title'];
-                        $statement->closeCursor();
-                        return $name;
-                    }
-                }
-
-                $qTitle = getQName($id);
-
-                //if condition to redirect a request if fields are empty
-                if ($qTitle == false){
-                    header('location: display_questions.php');
-                }
-                else {
-                    //Redirect to display_questions.php if login is true
-                    header("location: .?title=$qTitle");
-                }
-
-                //Getting data about question name, body and skills
-                $qTitle = filter_input(INPUT_GET,'title');
-                $body = filter_input(INPUT_GET,'qbody');
-                $skills = filter_input(INPUT_GET,'qskills');*/
-
-                ?>
                 <tr>
-                    <td><?php echo $qTitle; ?></td>
-                    <td><?php echo $qBody; ?></td>
-                    <td><?php echo $qSkills; ?></td>
+                    <td><?php echo $question['title']; ?></td>
+                    <td><?php echo $question['body']; ?></td>
+                    <td><?php echo $question['skills']; ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
+
     </div>
 
-    <br>
     <a href="questions.html" class="btn">Add Questions</a>
 
+
 </div>
-
-
 
 <?php
 // Testing database
@@ -242,6 +208,13 @@ if (strlen($question_name) >=3){
      //Close the database connection
     $statement = closeCursor();
 
+    //header("Location: display_questions.php?question_name=$question_name&question_body=$question_body&question_skills=$question_skills");
+
+// Receiving data
+    /*$question_name = filter_input(INPUT_GET,'question_name');
+    $question_body = filter_input(INPUT_GET,'question_body');
+    $question_skills = filter_input(INPUT_GET,'question_skills');*/
+
 }
 else {
     echo "Form is invalid";
@@ -249,181 +222,6 @@ else {
 
 
 ?>
-
-<?php
-// Function to get question name
-/*function get_qname($question_name, $question_body, $question_skills) {
-    global $db;
-    // SQL Query
-    $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
-    //Create PDO Statement
-    $statement = $db->prepare($query);
-
-    //Bind Form Values to SQL
-    $statement->bindValue(':qname', $question_name);
-    $statement->bindValue(':body', $question_body);
-    $statement->bindValue(':skills', $question_skills);
-
-    //Execute the SQL Query
-    $statement->execute();
-
-    //Fetch All data
-    $question = $statement->fetchAll();
-
-    $isValidLogin = count($question) > 0;
-
-    if (!$isValidLogin) {
-        $statement->closeCursor();
-        return false;
-    } else {
-        $name = $question['title'];
-        $statement->closeCursor();
-        return $name;
-    }
-}
-
-// Function to get question body
-    /*function get_qbody($question_name, $question_body, $question_skills) {
-    global $db;
-    // SQL Query
-    $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
-    //Create PDO Statement
-    $statement = $db->prepare($query);
-
-    //Bind Form Values to SQL
-    $statement->bindValue(':qname', $question_name);
-    $statement->bindValue(':body', $question_body);
-    $statement->bindValue(':skills', $question_skills);
-
-    //Execute the SQL Query
-    $statement->execute();
-
-    //Fetch All data
-    $question = $statement->fetchAll();
-
-    $isValidLogin = count($question) > 0;
-
-    if (!$isValidLogin) {
-        $statement->closeCursor();
-        return false;
-    } else {
-        $body = $question['body'];
-        $statement->closeCursor();
-        return $body;
-    }
-}
-
-// Function to get question skills
-function get_qskills($question_name, $question_body, $question_skills) {
-    global $db;
-    // SQL Query
-    $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
-    //Create PDO Statement
-    $statement = $db->prepare($query);
-
-    //Bind Form Values to SQL
-    $statement->bindValue(':qname', $question_name);
-    $statement->bindValue(':body', $question_body);
-    $statement->bindValue(':skills', $question_skills);
-
-    //Execute the SQL Query
-    $statement->execute();
-
-    //Fetch All data
-    $question = $statement->fetchAll();
-
-    $isValidLogin = count($question) > 0;
-
-    if (!$isValidLogin) {
-        $statement->closeCursor();
-        return false;
-    } else {
-        $skills = $question['title'];
-        $statement->closeCursor();
-        return $skills;
-    }
-}
-
-// Function to get question id
-function get_qid($question_name, $question_body, $question_skills) {
-    global $db;
-    // SQL Query
-    $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
-    //Create PDO Statement
-    $statement = $db->prepare($query);
-
-    //Bind Form Values to SQL
-    $statement->bindValue(':qname', $question_name);
-    $statement->bindValue(':body', $question_body);
-    $statement->bindValue(':skills', $question_skills);
-
-    //Execute the SQL Query
-    $statement->execute();
-
-    //Fetch All data
-    $question = $statement->fetchAll();
-
-    $isValidLogin = count($question) > 0;
-
-    if (!$isValidLogin) {
-        $statement->closeCursor();
-        return false;
-    } else {
-        $qID = $question['id'];
-        $statement->closeCursor();
-        return $qID;
-    }
-}
-
-// Function to get owner id
-function get_ownerID($question_name, $question_body, $question_skills) {
-    global $db;
-    // SQL Query
-    $query = 'SELECT * FROM questions WHERE title = :qname AND body = :body AND skills = :skills';
-    //Create PDO Statement
-    $statement = $db->prepare($query);
-
-    //Bind Form Values to SQL
-    $statement->bindValue(':qname', $question_name);
-    $statement->bindValue(':body', $question_body);
-    $statement->bindValue(':skills', $question_skills);
-
-    //Execute the SQL Query
-    $statement->execute();
-
-    //Fetch All data
-    $question = $statement->fetchAll();
-
-    $isValidLogin = count($question) > 0;
-
-    if (!$isValidLogin) {
-        $statement->closeCursor();
-        return false;
-    } else {
-        $ownerID = $question['id'];
-        $statement->closeCursor();
-        return $ownerID;
-    }
-}
-
-
-// Checking login info and Redirecting and sending data to display_questions.php
-$name = get_qname($question_name, $question_body, $question_skills);
-$body = get_qbody($question_name, $question_body, $question_skills);
-$skills = get_qskills($question_name, $question_body, $question_skills);
-$qID = get_qid($question_name, $question_body, $question_skills);
-$ownerID = get_qid($question_name, $question_body, $question_skills);
-
-//if condition to redirect a request if fields are empty
-if ($name == false AND $body == FALSE || $skills == FALSE){
-    header('location: register.html');
-}
-else {
-    //Redirect to display_questions.php if login is true
-    header("location: .?qname=$name &qbody=$body&qskills=$skills&qID=$qID&ownerID=$ownerID");
-}*/
-?>
-
 
 </body>
 </html>
