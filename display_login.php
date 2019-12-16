@@ -284,7 +284,7 @@ switch ($action) {
         $statement->closeCursor();
         return false;
     } else {
-        $qSkills = $question['body'];
+        $qSkills = $question['skills'];
         $statement->closeCursor();
         return $qSkills;
     }
