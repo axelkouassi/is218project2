@@ -206,6 +206,8 @@ switch ($action) {
         return $lastName;
     }
     }
+
+
     
 
     // Checking login info and Redirecting and sending data to display_questions.php
@@ -213,13 +215,92 @@ switch ($action) {
     $firstName = return_fname($email_address, $password);
     $lastName = return_lname($email_address, $password);
 
+    //function to return question name
+    function getQName($id) {
+    global $db;
+    // SQL Query
+    $query = 'SELECT * FROM questions WHERE ownerID = :ownerID';
+    //Create PDO Statement
+    $statement = $db->prepare($query);
+    //Bind Form Values to SQL
+    $statement->bindValue(':ownerID', $id);
+    //Execute the SQL Query
+    $statement->execute();
+    //Fetch All data
+    $question = $statement->fetchAll();
+    $isValidLogin = count($question) > 0;
+
+    if (!$isValidLogin) {
+        $statement->closeCursor();
+        return false;
+    } else {
+        $name = $question['title'];
+        $statement->closeCursor();
+        return $name;
+    }
+    }
+
+    //function to return question body
+    function getQBody($id) {
+    global $db;
+    // SQL Query
+    $query = 'SELECT * FROM questions WHERE ownerID = :ownerID';
+    //Create PDO Statement
+    $statement = $db->prepare($query);
+    //Bind Form Values to SQL
+    $statement->bindValue(':ownerID', $id);
+    //Execute the SQL Query
+    $statement->execute();
+    //Fetch All data
+    $question = $statement->fetchAll();
+    $isValidLogin = count($question) > 0;
+
+    if (!$isValidLogin) {
+        $statement->closeCursor();
+        return false;
+    } else {
+        $body = $question['body'];
+        $statement->closeCursor();
+        return $body;
+    }
+    }
+
+    //function to return question skills
+    function getQSkills($id) {
+    global $db;
+    // SQL Query
+    $query = 'SELECT * FROM questions WHERE ownerID = :ownerID';
+    //Create PDO Statement
+    $statement = $db->prepare($query);
+    //Bind Form Values to SQL
+    $statement->bindValue(':ownerID', $id);
+    //Execute the SQL Query
+    $statement->execute();
+    //Fetch All data
+    $question = $statement->fetchAll();
+    $isValidLogin = count($question) > 0;
+
+    if (!$isValidLogin) {
+        $statement->closeCursor();
+        return false;
+    } else {
+        $qSkills = $question['body'];
+        $statement->closeCursor();
+        return $qSkills;
+    }
+}
+
+     $qTitle = getQName($id);
+     $qBody = getQBody($id);
+     $qSkills = getQSkills($id);
+
     //if condition to redirect a request if fields are empty
     if ($id == false){
         header('location: register.html');
     }
     else {
         //Redirect to display_questions.php if login is true
-        header("location: display_questions.php?email_address=$email_address&password=$password&userID=$id&fname=$firstName&lname=$lastName");
+        header("location: display_questions.php?&userID=$id&fname=$firstName&lname=$lastName&title=$qTitle&body=$qBody&skills=$qSkills");
         }
 
     // Question Form
