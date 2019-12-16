@@ -296,7 +296,7 @@ switch ($action) {
     }
     else {
         //Redirect to display_questions.php if login is true
-        header("location: display_questions.php?&userID=$id");
+        header("location: display_questions.php?&userID=$id&fname=$firstName&lname=$lastName");
         }
 
 
