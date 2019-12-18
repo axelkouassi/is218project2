@@ -2,7 +2,7 @@
 
 require ('pdo.php');
 
-// Getting input data from users from display_login.php
+// Getting user's id, first name, and last name from display_login.php
 $id = filter_input(INPUT_GET,'userID');
 $firstName = filter_input(INPUT_GET,'fname');
 $lastName = filter_input(INPUT_GET,'lname');
@@ -84,39 +84,4 @@ $lastName = filter_input(INPUT_GET,'lname');
 
 </html>
 
-<?php
-
-require ('pdo.php');
-// Getting input data from users
-$question_name = filter_input(INPUT_POST,'question_name');
-$question_body = filter_input(INPUT_POST,'question_body');
-$question_skills = filter_input(INPUT_POST,'question_skills');
-
-// Getting user id from display_login.php
-$id = filter_input(INPUT_GET,'userID');
-
-if ($id){
-    // Writing questions to database
-    // SQL Query
-    $query = 'INSERT INTO questions (title, body, skills)
-                      VALUES (:title, :body, :skills)';
-    //Create PDO Statement
-    $statement = $db->prepare($query);
-    //Bind Form Values to SQL
-    $statement -> bindValue(':title', $question_name);
-    $statement -> bindValue(':body', $question_body);
-    $statement -> bindValue(':skills', $question_skills);
-    //Execute the SQL Query
-    $statement->execute();
-    //Close the database connection
-    $statement = closeCursor();
-
-    header("Location: display_questions.php?userID=$id");
-}
-else {
-    header('location: login.html');
-
-}
-
-?>
 
