@@ -76,7 +76,7 @@ $question_skills = filter_input(INPUT_GET,'question_skills');
     <nav id="nav_menu">
         <a href="index.html">
             <img src="images/logo1.jpg" alt = "Axel Kouassi Personal Logo" id = "logo"></a>
-        <a href="questions.html"class ="right_align">Questions</a>
+        <a href="questions.php"class ="right_align">Questions</a>
         <a href="register.html"class ="right_align">Register</a>
         <a href="login.html" class ="right_align">Login</a>
     </nav>
@@ -113,10 +113,11 @@ $question_skills = filter_input(INPUT_GET,'question_skills');
                 </tr>
             <?php endforeach; ?>
         </table>
+        <br>
 
     </div>
 
-    <a href="questions.html" class="btn">Add Questions</a>
+    <a href="questions.php?userID=<?php echo $id ?>" class="btn">Add Questions</a>
 
 </div>
 
