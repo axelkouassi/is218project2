@@ -101,7 +101,7 @@ if ($id){
     //Close the database connection
     $statement = closeCursor();
 
-    header("Location: display_questions.php?userId=$id&question_name=$question_name&question_body=$question_body&question_skills=$question_skills");
+    header("Location: display_questions.php?userID=$id&question_name=$question_name&question_body=$question_body&question_skills=$question_skills");
 }
 else {
     header('location: login.html');

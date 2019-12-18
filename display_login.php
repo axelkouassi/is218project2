@@ -92,7 +92,7 @@ switch ($action) {
     <nav id="nav_menu">
         <a href="index.html">
             <img src="images/logo1.jpg" alt="Axel Kouassi Personal Logo" id="logo"></a>
-        <a href="questions.html" class="right_align">Questions</a>
+        <a href="questions.php" class="right_align">Questions</a>
         <a href="register.html" class="right_align">Register</a>
         <a href="login.html" class="right_align">Login</a>
     </nav>
@@ -211,7 +211,7 @@ switch ($action) {
     $firstName = return_fname($email_address, $password);
     $lastName = return_lname($email_address, $password);
 
-    //function to return question name
+    /*//function to return question name
     function getQName($id) {
     global $db;
     // SQL Query
@@ -288,7 +288,7 @@ switch ($action) {
 
      $qTitle = getQName($id);
      $qBody = getQBody($id);
-     $qSkills = getQSkills($id);
+     $qSkills = getQSkills($id);*/
 
     //if condition to redirect a request if fields are empty
     if ($id == false){
