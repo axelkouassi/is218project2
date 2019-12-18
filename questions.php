@@ -1,3 +1,13 @@
+<?php
+
+require ('pdo.php');
+
+// Getting input data from users from display_login.php
+$id = filter_input(INPUT_GET,'userID');
+$firstName = filter_input(INPUT_GET,'fname');
+$lastName = filter_input(INPUT_GET,'lname');
+
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -41,7 +51,7 @@
 
 
 <main>
-    <form action="questions.php" method="post" class ="form">
+    <form action="display_questions.php?&userID=<?php echo $id ?>&fname=<?php echo $firstName ?>&lname=<?php echo $lastName ?>" method="post" class ="form">
         <h1>New Question Form</h1>
         <p style="color: red; ">* Required Fields</p><br>
         <div id="login_data">

@@ -117,7 +117,7 @@ $question_skills = filter_input(INPUT_GET,'question_skills');
 
     </div>
 
-    <a href="questions.php?userID=<?php echo $id ?>" class="btn">Add Questions</a>
+    <a href="questions.php?userID=<?php echo $id ?>&fname=<?php echo $firstName ?>&lname=<?php echo $lastName ?>" class="btn">Add Questions</a>
 
 </div>
 
