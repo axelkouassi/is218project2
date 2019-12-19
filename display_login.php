@@ -84,7 +84,6 @@ if ($action == NULL) {
     <nav id="nav_menu">
         <a href="index.html">
             <img src="images/logo1.jpg" alt="Axel Kouassi Personal Logo" id="logo"></a>
-        <a href="questions.php" class="right_align">Questions</a>
         <a href="register.html" class="right_align">Register</a>
         <a href="login.html" class="right_align">Login</a>
     </nav>
