@@ -91,5 +91,4 @@ header("Location: display_questions.php?userID=$id%fname=$firstName&lname=$lastN
 
 else {
     header("Location: questions.php?userID=$id%fname=$firstName&lname=$lastName");
-
 }

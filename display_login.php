@@ -211,9 +211,6 @@ if ($action == NULL) {
         header("location: display_questions.php?&userID=$id&fname=$firstName&lname=$lastName");
         }
 
-
-
-
     ?>
 
 
