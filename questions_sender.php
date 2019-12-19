@@ -84,11 +84,11 @@ $statement -> bindValue(':userID', $id);
 //Execute the SQL Query
 $statement->execute();
 //Close the database connection
-$statement = closeCursor();
+$statement -> closeCursor();
 
-header("Location: display_questions.php?userID=$id%fname=$firstName&lname=$lastName");
+header("Location: display_questions.php?userID=$id&fname=$firstName&lname=$lastName");
 }
 
 else {
-    header("Location: questions.php?userID=$id%fname=$firstName&lname=$lastName");
+    header("Location: questions.php?userID=$id&fname=$firstName&lname=$lastName");
 }
