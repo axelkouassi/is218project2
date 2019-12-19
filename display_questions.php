@@ -8,10 +8,11 @@ $id = filter_input(INPUT_GET,'userID');
 $firstName = filter_input(INPUT_GET,'fname');
 $lastName = filter_input(INPUT_GET,'lname');
 
+
 // Getting input data from users on question form
-/*$question_name = filter_input(INPUT_POST,'question_name');
+$question_name = filter_input(INPUT_POST,'question_name');
 $question_body = filter_input(INPUT_POST,'question_body');
-$question_skills = filter_input(INPUT_POST,'question_skills');*/
+$question_skills = filter_input(INPUT_POST,'question_skills');
 
 
     //SQL to Display all user's questions
@@ -117,6 +118,7 @@ $question_skills = filter_input(INPUT_POST,'question_skills');*/
 
     <!-- Link to get to question form with additional data being sent about userID, first name and last name -->
     <a href="questions.php?userID=<?php echo $id ?>&fname=<?php echo $firstName ?>&lname=<?php echo $lastName ?>" class="btn">Add Questions</a>
+
 
 </div>
 
