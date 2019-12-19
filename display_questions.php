@@ -8,6 +8,12 @@ $id = filter_input(INPUT_GET,'userID');
 $firstName = filter_input(INPUT_GET,'fname');
 $lastName = filter_input(INPUT_GET,'lname');
 
+// Getting input data from users on question form
+/*$question_name = filter_input(INPUT_POST,'question_name');
+$question_body = filter_input(INPUT_POST,'question_body');
+$question_skills = filter_input(INPUT_POST,'question_skills');*/
+
+
     //SQL to Display all user's questions
     global $db;
     // SQL Query
@@ -26,7 +32,6 @@ $lastName = filter_input(INPUT_GET,'lname');
         $statement->closeCursor();
         return false;
     } else {
-        //$qSkills = $questions['body'];
         $statement->closeCursor();
     }
 
@@ -110,7 +115,7 @@ $lastName = filter_input(INPUT_GET,'lname');
 
     </div>
 
-    //Link to get to question form with additional data being sent about userID, first name and last name
+    <!-- Link to get to question form with additional data being sent about userID, first name and last name -->
     <a href="questions.php?userID=<?php echo $id ?>&fname=<?php echo $firstName ?>&lname=<?php echo $lastName ?>" class="btn">Add Questions</a>
 
 </div>
@@ -119,34 +124,3 @@ $lastName = filter_input(INPUT_GET,'lname');
 </body>
 </html>
 
-<?php
-// Getting input data from users on question form
-$question_name = filter_input(INPUT_POST,'question_name');
-$question_body = filter_input(INPUT_POST,'question_body');
-$question_skills = filter_input(INPUT_POST,'question_skills');
-
-if ($id){
-    // Writing questions to database
-    // SQL Query
-    $query = 'INSERT INTO questions (title, body, skills)
-                      VALUES (:title, :body, :skills)
-                      WHERE ownerid = :userID';
-    //Create PDO Statement
-    $statement = $db->prepare($query);
-    //Bind Form Values to SQL
-    $statement -> bindValue(':title', $question_name);
-    $statement -> bindValue(':body', $question_body);
-    $statement -> bindValue(':skills', $question_skills);
-    $statement -> bindValue(':userID', $id);
-    //Execute the SQL Query
-    $statement->execute();
-    //Close the database connection
-    $statement = closeCursor();
-
-    header("Location: display_questions.php?userID=$id");
-}
-else {
-    header('location: login.html');
-
-}
-?>
