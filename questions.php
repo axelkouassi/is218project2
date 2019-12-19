@@ -7,11 +7,6 @@ $id = filter_input(INPUT_GET,'userID');
 $firstName = filter_input(INPUT_GET,'fname');
 $lastName = filter_input(INPUT_GET,'lname');
 
-// Getting input data from users on question form
-$question_name = filter_input(INPUT_POST,'question_name');
-$question_body = filter_input(INPUT_POST,'question_body');
-$question_skills = filter_input(INPUT_POST,'question_skills');
-
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -86,8 +81,14 @@ $question_skills = filter_input(INPUT_POST,'question_skills');
 
         <?php
 
+        // Getting input data from users on question form
+        $question_name = filter_input(INPUT_POST,'question_name');
+        $question_body = filter_input(INPUT_POST,'question_body');
+        $question_skills = filter_input(INPUT_POST,'question_skills');
 
-        if ($id){
+
+        if ($question_name != NULL || $question_body != NULL || $question_skills != NULL){
+
             // Writing questions to database
             // SQL Query
             $query = 'INSERT INTO questions (ownerid, title, body, skills)
@@ -107,7 +108,7 @@ $question_skills = filter_input(INPUT_POST,'question_skills');
             header("Location: display_questions.php?userID=$id%fname=$firstName&lname=$lastName");
         }
         else {
-            header('location: login.html');
+            header("Location: display_questions.php?userID=$id&fname=$firstName&lname=$lastName");
 
         }
         ?>
